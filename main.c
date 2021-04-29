@@ -61,13 +61,34 @@ int main() {
     /* TESTES DE BUSCAS DE ELEMENTOS ALEATÓRIOS UTILIZANDO array_find() */
     srand(time(NULL));
     inicio = clock();
-    for (i = 0; i < 20000; ++i)
+    for (i = 0; i < 2500; ++i)
         array_find(array, rand());
     fim = clock();
     elapsedTime = (fim-inicio)/(CLOCKS_PER_SEC/1000.0);
     printf("Tempo decorrido: %lfms\n", elapsedTime);
 
-    
+    /* =------------------------------------------------------------= */
+    /* TESTES DE REMOÇÕES DE ELEMENTOS UTILIZANDO array_remove_from() */  
+    inicio = clock();
+    for (i = 0; i < 10000; ++i) 
+        array_remove_from(array, i*2);
+    fim = clock(); 
+    elapsedTime = (fim-inicio)/(CLOCKS_PER_SEC/1000.0);
+    printf("Tempo decorrido: %lfms\n", elapsedTime);
+
+    /* =-----------------------------------------------------------------------------------------------= */
+    /* TESTES DE BUSCAS E REMOÇÕES DE ELEMENTOS ALEATÓRIOS UTILIZANDO array_find() E array_remove_from() */
+    int index;
+    inicio = clock();
+    for (i = 0; i < 2000; ++i) {
+        index = -1;
+        index = array_find(array, rand());
+        if (index != -1)
+            array_remove_from(array, index);
+    }      
+    fim = clock();
+    elapsedTime = (fim-inicio)/(CLOCKS_PER_SEC/1000.0);
+    printf("Tempo decorrido: %lfms\n", elapsedTime);
 
     array_destroy(array);
     return 0;

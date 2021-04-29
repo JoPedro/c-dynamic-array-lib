@@ -12,12 +12,36 @@
  * The 'data' field is a pointer that points to the memory space where the data of the array
  * will be placed. The fields 'size' and 'capacity represent, respectively, the size and
  * capacity of the dynamic array.
- * 
 */
 struct array_int {
     int *data;
     size_t size, capacity;
 };
+
+/**
+ * PT:
+ * A função aloca um espaço de memória de tamanho suficiente para armazenar um tipo de estrutura
+ * 'array_int' para o ponteiro de array_int '*array'. Se array for 0, quer dizer que a função de 
+ * alocação 'malloc' não conseguiu alocar memória suficiente, e então a função retorna 0. Se 
+ * a alocação foi bem-sucedida, os campos 'data', 'size', e 'capacity' são inicializados no tipo 
+ * estrutura array_int apontado pelo ponteiro array. O campo 'data' aloca um espaço de memória de
+ * tamanho do parâmetro de tipo redefinido size_t 'capacity', que será o tamanho da capacidade do
+ * vetor criado. O valor inicial do campo 'size' é 0, e do campo 'capacity' é passado pelo paramêtro
+ * de mesmo nome.
+ * 
+ * O desempenho desta função segundo a notação big-Oh é O(1), pois é sempre o mesmo
+ * número de operações, então é constante.
+ * EN:
+ * 
+*/
+array_int* array_create(size_t capacity) {
+    array_int *array = (array_int*)malloc(sizeof(array_int));
+    if (!array) return 0;
+    array->data = (int*)malloc(sizeof(int) * capacity);
+    array->size = 0;
+    array->capacity = capacity;
+    return array;
+}
 
 /**
  * PT:
@@ -30,21 +54,6 @@ struct array_int {
 void array_destroy(array_int *array) {
     free(array->data);
     free(array);
-}
-
-/**
- * PT:
- * 
- * EN:
- * 
-*/
-array_int* array_create(size_t capacity) {
-    array_int *array = (array_int*)malloc(sizeof(array_int));
-    if (!array) return 0;
-    array->data = (int*)malloc(sizeof(int) * capacity);
-    array->size = 0;
-    array->capacity = capacity;
-    return array;
 }
 
 /**
@@ -178,7 +187,23 @@ int array_find(array_int *array, int element) {
 
 /**
  * PT:
+ * A função inicializa uma variável inteira 'insertion' com -1, pois se a condição do 'if'
+ * que vem depois não for aceita, o retorno será -1 (falha na inserção por índice inválido).
+ * Se a condição do 'if' passar, o índice 'index' é válido, então a função verifica se o campo
+ * 'size' do array é igual ao campo 'capacity', ou seja, não há espaço para inserção de um novo 
+ * elemento, se sim, é alocado um novo espaço de memória com a capacidade aumentada em 'increase',
+ * realiza-se a cópia do array para um novo array com a nova capacidade, e libera-se o espaço de 
+ * memória do array antigo. Então a função percorre o array do índice logo após o último elemento 
+ * até o índice da iteração for igual a 'index', enquanto ele percorre esse laço, em cada iteração,
+ * o elemento de índice atual 'i' do campo de 'data' do array recebe o valor do elemento do índice 
+ * anterior, assim deslocando todos os elementos até o índice de inserção para direita, assim livrando
+ * espaço no índice 'index' para a inserção do novo elemento. A variável 'insertion' recebe 'index'
+ * se a inserção for bem-sucedidada. A função retorna 'insertion', -1 se não foi realizada a inserção, e
+ * 'index' se foi realizada.
  * 
+ * O desempenho desta função segundo a notação big-Oh é O(n), onde 'n' é número de elementos 
+ * no vetor, pois no pior caso, ela terá que percorrer os valores do vetor (adicionar um elemento
+ * na primeira posição do array).
  * EN:
  * 
 */
@@ -208,7 +233,19 @@ int array_insert_at(array_int *array, int index, int value, int increase) {
 
 /**
  * PT:
+ * A função verifica se o 'index' é válido com um 'if', tem que ser entre 0 e size-1,
+ * então ela percorre o array a partir do 'index' fornecido, e em cada iteração do laço,
+ * o elemento de índice atual recebe o valor do elemento do próximo índice (parada tem que
+ * ser size-1, pois o último elemento não irá ter próximo elemento para realizar essa operação),
+ * essa realizando o deslocamento de todos os elementos do array a partir do 'index' pra esquerda,
+ * removendo o elemento de índice 'index'. Então a função diminui o tamanho do array através do 
+ * campo 'size' para sincronizar com o deslocamento que ocorreu. A função retorna o campo 'size',
+ * mesmo se não ocorreu mudança (se o 'if' não passar), mas se ocorreu, o novo campo 'size' foi
+ * decrementado dentro do 'if' anterior.
  * 
+ * O desempenho desta função segundo a notação big-Oh é O(n), onde 'n' é número de elementos 
+ * no vetor, pois no pior caso, ela terá que percorrer os valores do vetor (remover um elemento
+ * na primeira posição do array).
  * EN:
  * 
 */
@@ -224,7 +261,16 @@ int array_remove_from(array_int *array, int index) {
 
 /**
  * PT:
+ * A função inicializa a váriavel do tipo double 'percent' com o valor 1.0, e depois
+ * verifica se o campo 'size' do array, seu tamanho, é menor que o campo 'capacity', 
+ * sua capacidade, se não for menor, é igual, então a condição do 'if' não será aceita
+ * e o retorno será 1.0 (100% do array ocupado, pois size = capacity). Se a condição 
+ * passar, é atribuído a 'percent' o resultado da divisão entre 'size' e 'capacity', 
+ * com typecast para double, pois os dois são tipo 'size_t', gerando assim sua 
+ * porcentagem entre 0 e 1.
  * 
+ * O desempenho desta função segundo a notação big-Oh é O(1), pois é sempre o mesmo
+ * número de operações, então é constante.
  * EN:
  * 
 */
