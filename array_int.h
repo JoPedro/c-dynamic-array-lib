@@ -84,13 +84,14 @@ int array_find(array_int *array, int element);
  * Function: int array_insert_at(array_int *array, int index, int value);
  *
  * Description: Inserts int value 'value' at index 'index'. 'index' must
- * be a valid index, between 0 and 'array_size'−1.
+ * be a valid index, between 0 and 'array_size'−1. If it exceeds capacity,
+ * increase by the value 'increase'.
  *
  * Return: the value index, if insertion ok or −1 if the insertion could
  * not be done.
  *
 */
-int array_insert_at(array_int *array, int index, int value);
+int array_insert_at(array_int *array, int index, int value, int increase);
 
 /**
  * Function: array_remove_from(array_int *array, int index);

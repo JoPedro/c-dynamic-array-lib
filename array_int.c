@@ -78,9 +78,9 @@ int array_get(array_int *array, int index) {
  * a alocação deste campo, e o espaço de memória antes apontado pelo vetor anterior ao 
  * aumento da capacidade é liberado.
  * 
- * O desempenho desta função segundo a notação big-Oh é O(n), onde 'n' é o tamanho do vetor,
- * pois no pior caso, o processo de cópia é necessário, e ela terá que percorrer 
- * todos os valores do vetor.
+ * O desempenho desta função segundo a notação big-Oh é O(n), onde 'n' é o número de 
+ * elementos no vetor pois no pior caso, o processo de cópia é necessário, e ela terá 
+ * que percorrer todos os valores do vetor.
  * EN:
  * 
 */
@@ -152,10 +152,86 @@ size_t array_capacity(array_int *array) {
 
 /**
  * PT:
+ * A função percorre todo o array, utilizando um laço com o limite estabelecido 
+ * pelo campo 'size' de array, se o conteúdo do índice atual do campo 'data' for 
+ * igual ao parâmetro inteiro 'element', a variável de retorno index recebe o índice
+ * atual do laço 'i'.
  * 
+ * Depois há uma verificação pra saber se o índice 'index' está entre 0 e size-1.
+ * Repare que o valor inicial de 'index' é -1 justamente para ele ser rejeitado se 
+ * o 'if' dentro do laço nunca tiver sua condição aceita, ou seja, o elemento não foi
+ * encontrado.
+ * 
+ * O desempenho desta função segundo a notação big-Oh é O(n), onde 'n' é número de elementos 
+ * no vetor, pois ela terá que percorrer todos os valores do vetor.
  * EN:
  * 
 */
 int array_find(array_int *array, int element) {
     int i;
+    int index = -1;
+    for (i = 0; i < array->size; ++i)
+        if (array->data[i] == element) index = i;
+    if (index >= 0 && index < array->size)
+        return index;
+}
+
+/**
+ * PT:
+ * 
+ * EN:
+ * 
+*/
+int array_insert_at(array_int *array, int index, int value, int increase) {
+    int insertion = -1;
+    if (index >= 0 && index < array->size) {
+        if (array->size == array->capacity) {
+            array->capacity = array->capacity+increase;
+            int *copy = (int*)malloc(sizeof(int) * (array->capacity));
+            int *old = array->data;
+            int index;
+            for (index = 0; index < array->size; ++index)
+                *(copy+index) = *(old+index);
+            array->data = copy;
+            free(old);
+        }
+        int i;
+        array->size++;
+        
+        for (i = array->size; i > index; --i)
+            array->data[i] = array->data[i-1];
+        array->data[index] = value;
+        insertion = index;
+    }
+    return insertion;
+}
+
+/**
+ * PT:
+ * 
+ * EN:
+ * 
+*/
+int array_remove_from(array_int *array, int index) {
+    if (index >= 0 && index < array->size) {
+        int i;
+        for (i = index; i < array->size - 1; ++i)
+            array->data[i] = array->data[i+1];
+        array->size--;
+    }
+    return array->size;
+}
+
+/**
+ * PT:
+ * 
+ * EN:
+ * 
+*/
+double array_percent_occuped(array_int *array) {
+    double percent = 1.0;
+    if (array->size < array->capacity) {
+        percent = ((double)array->size)/((double)array->capacity);
+    }
+    return percent;
 }
