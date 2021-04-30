@@ -26,7 +26,7 @@ struct array_int {
  * a alocação foi bem-sucedida, os campos 'data', 'size', e 'capacity' são inicializados no tipo 
  * estrutura array_int apontado pelo ponteiro array. O campo 'data' aloca um espaço de memória de
  * tamanho do parâmetro de tipo redefinido size_t 'capacity', que será o tamanho da capacidade do
- * vetor criado. O valor inicial do campo 'size' é 0, e do campo 'capacity' é passado pelo paramêtro
+ * vetor criado. O valor inicial do campo 'size' é 0, e do campo 'capacity' é passado pelo parâmetro
  * de mesmo nome.
  * 
  * O desempenho desta função segundo a notação big-Oh é O(1), pois é sempre o mesmo
@@ -58,7 +58,7 @@ void array_destroy(array_int *array) {
 
 /**
  * PT:
- * A função verifica se o paramêtro de índice 'index' está entre 0 e tamanho-1, onde 
+ * A função verifica se o parâmetro de índice 'index' está entre 0 e tamanho-1, onde 
  * tamanho é o campo 'size' do vetor, representando seu tamanho, então ela retorna o
  * elemento no índice de número 'index' nos dados do array.
  * 
@@ -77,7 +77,7 @@ int array_get(array_int *array, int index) {
  * Primeiro a função verifica se o campo de tamanho do vetor dinâmico é igual 
  * ao campo de capacidade, se for, a capacidade atual não é o suficiente para inserir 
  * o inteiro 'i' no final do vetor, então o campo 'capacity' do vetor é somado ao 
- * paramêtro 'increase', depois, um ponteiro de inteiros 'copy' é declarado para apontar 
+ * parâmetro 'increase', depois, um ponteiro de inteiros 'copy' é declarado para apontar 
  * para um espaço de memória alocado com a nova capacidade aumentada do vetor, colocando 
  * os dados do vetor em um outro ponteiro de inteiros 'old' para guardar o estado do vetor 
  * antes do aumento, então há um processo de cópia, onde é colocado no conteúdo de cada 
@@ -116,10 +116,10 @@ size_t array_push_back(array_int *array, int i, size_t increase) {
  * O desempenho desta função segundo a notação big-Oh é O(1), pois é sempre o mesmo
  * número de operações, então é constante.
  * EN:
- * The funcion checks if the 'size' field from the array, its size, is larger than
+ * The function checks if the 'size' field from the array, its size, is larger than
  * zero, to then remove the last element, decrementing 1 from the size.
  * 
- * The performance of this funcion according to big-Oh notation is O(1), because
+ * The performance of this function according to big-Oh notation is O(1), because
  * it's always the same number of operations, so it's constant.
 */
 size_t array_pop_back(array_int *array) {
@@ -136,7 +136,7 @@ size_t array_pop_back(array_int *array) {
  * EN:
  * Returns the 'size' field from the array, which is its size.
  * 
- * The performance of this funcion according to big-Oh notation is O(1), because
+ * The performance of this function according to big-Oh notation is O(1), because
  * it's always the same number of operations, so it's constant.
 */
 size_t array_size(array_int *array) {
@@ -152,7 +152,7 @@ size_t array_size(array_int *array) {
  * EN:
  * Returns the 'capacity' field from the array, which is its capacity.
  * 
- * The performance of this funcion according to big-Oh notation is O(1), because
+ * The performance of this function according to big-Oh notation is O(1), because
  * it's always the same number of operations, so it's constant.
 */
 size_t array_capacity(array_int *array) {
@@ -198,7 +198,7 @@ int array_find(array_int *array, int element) {
  * o elemento de índice atual 'i' do campo de 'data' do array recebe o valor do elemento do índice 
  * anterior, assim deslocando todos os elementos até o índice de inserção para direita, assim livrando
  * espaço no índice 'index' para a inserção do novo elemento. A variável 'insertion' recebe 'index'
- * se a inserção for bem-sucedidada. A função retorna 'insertion', -1 se não foi realizada a inserção, e
+ * se a inserção for bem-sucedida. A função retorna 'insertion', -1 se não foi realizada a inserção, e
  * 'index' se foi realizada.
  * 
  * O desempenho desta função segundo a notação big-Oh é O(n), onde 'n' é número de elementos 
@@ -261,7 +261,7 @@ int array_remove_from(array_int *array, int index) {
 
 /**
  * PT:
- * A função inicializa a váriavel do tipo double 'percent' com o valor 1.0, e depois
+ * A função inicializa a variável do tipo double 'percent' com o valor 1.0, e depois
  * verifica se o campo 'size' do array, seu tamanho, é menor que o campo 'capacity', 
  * sua capacidade, se não for menor, é igual, então a condição do 'if' não será aceita
  * e o retorno será 1.0 (100% do array ocupado, pois size = capacity). Se a condição 

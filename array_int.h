@@ -1,7 +1,7 @@
 #include <stddef.h>
 
 /**
- * ANSI C dinamic array of int values library
+ * ANSI C dynamic array of int values library
  *
  * Author:
  * Date:
