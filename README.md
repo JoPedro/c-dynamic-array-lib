@@ -1,2 +1,2 @@
-# c-dynamic-sized-array
-Dynamically sized Array in C using memory allocation.
+# c-dynamic-array-lib
+Library of functions for manipulating a dynamic vector in C.
